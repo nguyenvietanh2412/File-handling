@@ -1,53 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <ctype.h>
 #include "caesar_cipher.h"
 
 // Function to validate and retrieve a valid encryption shift
 int check_encrypting_shift()
 {
-    int shift;
-    char str[1024];
-    char *p_end;
+    float shift;
     printf("Encrypting shift: ");
     
-    // Loop until a valid positive integer input is provided
-    while (1) 
+    // Loop until a valid negative integer input is provided
+    while (scanf("%f", &shift) != 1 || (shift < 0 && shift > -26) || shift - (int)shift != 0) 
     {
-        fgets(str, sizeof(str), stdin);
-        shift = strtol(str, &p_end, 10);
-        
-        // Check if the input is a valid number within the shift range (0-25)
-        if (*p_end == '\n' && shift > 0 && shift < 26) {
-            break;
-        }
         printf("Invalid encrypting shift. Enter again:\nEncrypting shift: ");
+        while (getchar() != '\n');
     }
-    return shift;
+    return (int)shift;
 }
 
 // Function to validate and retrieve a valid decryption shift
 int check_decrypting_shift()
 {
-    int shift;
-    char str[1024];
-    char *p_end;
+    float shift;
     printf("Decrypting shift: ");
     
     // Loop until a valid negative integer input is provided
-    while (1) 
+    while (scanf("%f", &shift) != 1 || (shift < 0 && shift > -26) || shift - (int)shift != 0) 
     {
-        fgets(str, sizeof(str), stdin);
-        shift = strtol(str, &p_end, 10);
-        
-        // Check if the input is a valid number within the shift range (-25 to 0)
-        if (*p_end == '\n' && shift < 0 && shift > -26) {
-            break;
-        }
         printf("Invalid decrypting shift. Enter again:\nDecrypting shift: ");
+        while (getchar() != '\n');
     }
-    return shift;
+    return (int)shift;
 }
 
 // Function to perform the Caesar cipher encryption/decryption for a character
